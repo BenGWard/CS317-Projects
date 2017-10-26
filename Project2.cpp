@@ -1,8 +1,5 @@
 //	Class:		CS317
 //	Name:		Ben Ward
-//	Email:		bward1@my.athens.edu
-//	Student ID:	00076160
-//	Title:		Project 2
 
 #include <iostream>	
 #include <iomanip> //needed for setprecision
