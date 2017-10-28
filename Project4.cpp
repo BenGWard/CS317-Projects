@@ -7,6 +7,18 @@
 
 using namespace std;
 
+//global constants
+const double VEHICLEEXPENSE = 0.27;
+const int DAILYALLOWPARKING = 6;
+const int DAILYALLOWTAXI = 10;
+const int DAILYALLOWHOTEL = 90;
+const int ALLOWEDBREAKFAST = 9;
+const int ALLOWEDLUNCH = 12;
+const int ALLOWEDDINNER = 16;
+
+//global variables
+double totalExpenses = 0;
+
 int main()
 {	
 	return 0;
@@ -17,7 +29,18 @@ int main()
 // The daysSpent function asks for the number of days     *
 // spent on the trip and returns the value as an integer. *
 // ********************************************************
-
+int daysSpent()
+{
+	int days;
+	
+	do
+	{
+		cout << "Enter number of days spent on the trip:";
+		cin >> days;
+	} while (days < 1);
+	
+	return days;
+}
 
 // ********************************************************
 // The times function asks for the time of departure and  *
@@ -39,7 +62,20 @@ int main()
 // to the totalExpenses, and returns the airfare amount   *
 // as a double.                                           *
 // ********************************************************
-
+double airFare ()
+{
+	double airFare;
+	
+	do
+	{
+		cout << "Enter amount of airfare:";
+		cin >> airFare;
+	} while (fare < 0.0);
+	
+	totalExpenses += airFare;
+	
+	return airFare;
+}
 
 // ********************************************************
 // The carRental function asks the user to enter the      *
@@ -47,7 +83,20 @@ int main()
 // the value to the totalExpenses, and returns the amount *
 // of car rental fees as a double.                        *
 // ********************************************************
-
+double carRental ()
+{
+	double rentals;
+	
+	do
+	{
+		cout << "Enter amount of car rental fees:";
+		cin >> rentals;
+	} while (rentals < 0.0);
+	
+	totalExpenses += rentals;
+	
+	return rentals;
+}
 
 // ********************************************************
 // The vehicle function asks the user to enter the number *
@@ -55,6 +104,22 @@ int main()
 // added to the totalExpenses global variable. Allowable  *
 // expenses are returned as a double.                     *
 // ********************************************************
+double vehicle ()
+{
+	int miles;
+	double milesExpense;
+	
+	do
+	{
+		cout << "Enter number of miles driven via private vehicle:";
+		cin >> miles;
+	} while (miles < 0);
+	
+	milesExpense = miles * VEHICLEEXPENSE;
+	totalExpenses += milesExpense;
+	
+	return milesExpense;
+}
 
 // ********************************************************
 // The parking function asks the user to enter the amount *
@@ -62,7 +127,26 @@ int main()
 // totalExpenses global variable. Allowable expenses are  *
 // returned as a double.                                  *
 // ********************************************************
-
+double parking (int days)
+{
+	double parkingFees;
+	double allowedFees;
+	
+	do
+	{
+		cout << "Enter amount of parking fees:";
+		cin >> parkingFees;
+	} while (parkingFees < 0.0);
+	
+	totalExpenses += parkingFees;
+	
+	allowedFees = days * DAILYALLOWPARKING;
+	
+	if (parkingFees <= allowedFees)
+		allowedFees = parkingFees;
+	
+	return allowedFees;
+}
 
 // ********************************************************
 // The taxi function asks the user to enter the amount    *
@@ -70,7 +154,26 @@ int main()
 // totalExpenses global variable. Allowable expenses are  *
 // returned as a double.                                  *
 // ********************************************************
-
+double taxi (int days)
+{
+	double taxiFees;
+	double allowedFees;
+	
+	do
+	{
+		cout << "Enter amount of taxi fees:";
+		cin >> taxiFees;
+	} while (taxiFees < 0.0);
+	
+	totalExpenses += taxiFees;
+	
+	allowedFees = days * DAILYALLOWTAXI;
+	
+	if (taxiFees <= allowedFees)
+		allowedFees = taxiFees;
+	
+	return allowedFees;
+}
 
 // ********************************************************
 // The registration function asks the user to enter the   *
@@ -78,7 +181,20 @@ int main()
 // employee, adds the amount to totalExpenses, and        *
 // returns the amount spent as a double.                  *
 // ********************************************************
-
+double registration ()
+{
+	double regFees;
+	
+	do
+	{
+		cout << "Enter amount of registration fees:";
+		cin >> regFees;
+	} while (regFees < 0.0);
+	
+	totalExpenses += regFees;
+	
+	return regFees;
+}
 
 // ********************************************************
 // The hotel function asks the user to enter the amount   *
@@ -86,6 +202,28 @@ int main()
 // totalExpenses global variable. Allowable expenses are  * 
 // returned as a double.                                  *
 // ********************************************************
+double hotel (int days)
+{
+	double rate;
+	double total;
+	double allowedFees;
+	
+	do
+	{
+		cout << "Enter the nightly hotel rate:";
+		cin >> rate;
+	} while (rate < 0.0);
+	
+	total = rate * days;
+	totalExpenses += total;
+	
+	allowedFees = days * DAILYALLOWHOTEL;
+	
+	if (total <= allowedFees)
+		allowedFees = total;
+	
+	return allowedFees;
+}
 
 // ********************************************************
 // The meals function calls the getBreakfast, getLunch,   *
