@@ -1,5 +1,6 @@
 //	Class:		CS317
 //	Name:		Ben Ward
+//	Title:		Project 1
 
 #include <iostream>	//for cin & cout
 #include <iomanip>	//for setw

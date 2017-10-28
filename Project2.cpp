@@ -1,5 +1,6 @@
 //	Class:		CS317
 //	Name:		Ben Ward
+//	Title:		Project 2
 
 #include <iostream>	
 #include <iomanip> //needed for setprecision
