@@ -17,10 +17,26 @@ const int ALLOWEDLUNCH = 12;
 const int ALLOWEDDINNER = 16;
 
 //global variables
-double totalExpenses = 0;
+double totalExpenses = 0; //variable for total expenses of trip
+
+int daysSpent();
+void times (double &, double &);
+bool isValidTime (double);
+double airFare ();
+double carRental ();
+double vehicle ();
+double parking (int);
+double taxi (int);
+double registration ();
+double hotel (int); 
+double getBreakfast();
+double getLunch();
+double getDinner();
 
 int main()
 {	
+	double allowedExpenses = 0; //variable for allowed expenses of trip
+	
 	return 0;
 }
 
@@ -187,10 +203,10 @@ double parking (int days)
 	
 	allowedFees = days * DAILYALLOWPARKING;
 	
-	if (parkingFees <= allowedFees)
-		allowedFees = parkingFees;
+	if (parkingFees > allowedFees)
+		parkingFees = allowedFees;
 	
-	return allowedFees;
+	return parkingFees;
 }
 
 // ********************************************************
@@ -217,10 +233,10 @@ double taxi (int days)
 	
 	allowedFees = days * DAILYALLOWTAXI;
 	
-	if (taxiFees <= allowedFees)
-		allowedFees = taxiFees;
+	if (taxiFees > allowedFees)
+		taxiFees = allowedFees;
 	
-	return allowedFees;
+	return taxiFees;
 }
 
 // ********************************************************
@@ -256,7 +272,7 @@ double registration ()
 double hotel (int days)
 {
 	double rate;
-	double total;
+	double hotelBill;
 	double allowedFees;
 	
 	do
@@ -268,15 +284,15 @@ double hotel (int days)
 			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (rate < 0.0);
 	
-	total = rate * days;
-	totalExpenses += total;
+	hotelBill = rate * days;
+	totalExpenses += hotelBill;
 	
 	allowedFees = days * DAILYALLOWHOTEL;
 	
-	if (total <= allowedFees)
-		allowedFees = total;
+	if (hotelBill > allowedFees)
+		hotelBill = allowedFees;
 	
-	return allowedFees;
+	return hotelBill;
 }
 
 // ********************************************************
@@ -294,7 +310,26 @@ double hotel (int days)
 // the totalExpenses global variable. Allowable expenses  *
 // are returned as a double.                              *
 // ********************************************************
+double getBreakfast()
+{
+	double amount;
 
+	do
+	{
+		cout << "Enter amount spent for breakfast: ";
+		cin >> amount;
+
+		if (amount < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
+	} while (amount < 0.0);
+
+	totalExpenses += amount;
+
+	if (amount > ALLOWEDBREAKFAST)
+		amount = ALLOWEDBREAKFAST;
+
+	return amount;
+}
 
 // ********************************************************
 // The getLunch function asks the user for the amount     *
@@ -302,6 +337,26 @@ double hotel (int days)
 // totalExpenses global variable. Allowable expenses are  *
 // returned as a double.                                  *
 // ********************************************************
+double getLunch()
+{
+	double amount;
+
+	do
+	{
+		cout << "Enter amount spent for lunch: ";
+		cin >> amount;
+
+		if (amount < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
+	} while (amount < 0.0);
+
+	totalExpenses += amount;
+
+	if (amount > ALLOWEDLUNCH)
+		amount = ALLOWEDLUNCH;
+
+	return amount;
+}
 
 // ********************************************************
 // The getDinner function asks the user for the amount    *
@@ -309,3 +364,23 @@ double hotel (int days)
 // totalExpenses global variable. Allowable expenses are  *
 // returned as a double.                                  *
 // ********************************************************
+double getDinner()
+{
+	double amount;
+
+	do
+	{
+		cout << "Enter amount spent for dinner: ";
+		cin >> amount;
+
+		if (amount < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
+	} while (amount < 0.0);
+
+	totalExpenses += amount;
+
+	if (amount > ALLOWEDDINNER)
+		amount = ALLOWEDDINNER;
+
+	return amount;
+}
