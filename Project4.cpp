@@ -35,8 +35,11 @@ int daysSpent()
 	
 	do
 	{
-		cout << "Enter number of days spent on the trip:";
+		cout << "Enter number of days spent on the trip: ";
 		cin >> days;
+		
+		if (days < 1)
+			cout << "Error. Only numbers greater than 0 accepted." << endl;
 	} while (days < 1);
 	
 	return days;
@@ -47,7 +50,20 @@ int daysSpent()
 // the time of return. The times are validated and stored *
 // in the reference parameter variables: start and end.   *
 // ********************************************************
-
+void times (double &start, double &end)
+{
+	do 
+	{
+		cout << "Enter the departure time (HH.MM): ";
+		cin >> start;
+		
+		cout << "Enter the return time (HH.MM): ";
+		cin >> end;
+		
+		if (isValidTime(start) && isValidTime(end))
+			cout << "Error. Only valid times accepted." << endl;
+	} while (isValidTime(start) && isValidTime(end));
+}
 
 // ********************************************************
 // The isValidTime function accepts a double argument     *
@@ -68,9 +84,12 @@ double airFare ()
 	
 	do
 	{
-		cout << "Enter amount of airfare:";
+		cout << "Enter amount of airfare: ";
 		cin >> airFare;
-	} while (fare < 0.0);
+		
+		if (airFare < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
+	} while (airFare < 0.0);
 	
 	totalExpenses += airFare;
 	
@@ -89,8 +108,11 @@ double carRental ()
 	
 	do
 	{
-		cout << "Enter amount of car rental fees:";
+		cout << "Enter amount of car rental fees: ";
 		cin >> rentals;
+		
+		if (rentals < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (rentals < 0.0);
 	
 	totalExpenses += rentals;
@@ -111,8 +133,11 @@ double vehicle ()
 	
 	do
 	{
-		cout << "Enter number of miles driven via private vehicle:";
+		cout << "Enter number of miles driven via private vehicle: ";
 		cin >> miles;
+		
+		if (miles < 0)
+			cout << "Error. Only positive numbers accepted." << endl;
 	} while (miles < 0);
 	
 	milesExpense = miles * VEHICLEEXPENSE;
@@ -134,8 +159,11 @@ double parking (int days)
 	
 	do
 	{
-		cout << "Enter amount of parking fees:";
+		cout << "Enter amount of parking fees: ";
 		cin >> parkingFees;
+		
+		if (parkingFees < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (parkingFees < 0.0);
 	
 	totalExpenses += parkingFees;
@@ -161,8 +189,11 @@ double taxi (int days)
 	
 	do
 	{
-		cout << "Enter amount of taxi fees:";
+		cout << "Enter amount of taxi fees: ";
 		cin >> taxiFees;
+		
+		if (taxiFees < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (taxiFees < 0.0);
 	
 	totalExpenses += taxiFees;
@@ -187,8 +218,11 @@ double registration ()
 	
 	do
 	{
-		cout << "Enter amount of registration fees:";
+		cout << "Enter amount of registration fees: ";
 		cin >> regFees;
+		
+		if (regFees < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (regFees < 0.0);
 	
 	totalExpenses += regFees;
@@ -210,8 +244,11 @@ double hotel (int days)
 	
 	do
 	{
-		cout << "Enter the nightly hotel rate:";
+		cout << "Enter the nightly hotel rate: ";
 		cin >> rate;
+		
+		if (rate < 0.0)
+			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (rate < 0.0);
 	
 	total = rate * days;
