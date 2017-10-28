@@ -57,12 +57,18 @@ void times (double &start, double &end)
 		cout << "Enter the departure time (HH.MM): ";
 		cin >> start;
 		
+		if (!isValidTime(start))
+			cout << "Error. Only valid times accepted." << endl;
+	} while (!isValidTime(start));
+	
+	do
+	{
 		cout << "Enter the return time (HH.MM): ";
 		cin >> end;
 		
-		if (isValidTime(start) && isValidTime(end))
+		if (!isValidTime(end))
 			cout << "Error. Only valid times accepted." << endl;
-	} while (isValidTime(start) && isValidTime(end));
+	} while (!isValidTime(end));
 }
 
 // ********************************************************
@@ -71,6 +77,17 @@ void times (double &start, double &end)
 // The value is tested, and if it is valid the function   *
 // returns true. Otherwise it returns false.              *
 // ********************************************************
+bool isValidTime (double time)
+{
+	int hoursOnly = time;
+	double minOnly = time - hoursOnly;
+	bool status = false;
+	
+	if (time >= 0.0 && time < 24.60 && minOnly <=0.59)
+		status = true;
+	
+	return status;
+}
 
 // ********************************************************
 // The airFare function asks the user to enter the amount *
