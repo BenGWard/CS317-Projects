@@ -18,7 +18,7 @@ const int ALLOWEDDINNER = 16;
 
 //global variables
 double totalExpenses = 0; //variable for total expenses of trip
-double maximumAllowedExpenses = 0; //variable for the maximum allowed expenses
+double amountSaved = 0; //variable for amount allowed expensed minus amount actually expensed
 
 int daysSpent();
 void times (double &, double &);
@@ -41,6 +41,7 @@ int main()
 	int days; //variable for number of days on the trip
 	double departureTime; //departure time of trip (format HH.MM)
 	double arrivalTime; //arrival time of trip (format HH.MM)
+	double amountReimbursed; //amount to be reimbursed by employee
 	
 	//get number of days on trip and arrival and departure times
 	days = daysSpent();
@@ -55,14 +56,18 @@ int main()
 	allowedExpenses += registration();
 	allowedExpenses += hotel(days);
 	allowedExpenses += meals(days, departureTime, arrivalTime);
+	amountReimbursed = totalExpenses - allowedExpenses;
 
 	//format output for money
 	cout << setprecision(2) << fixed;
 
-	cout << "Total expenses: $" << totalExpenses << endl;
+	cout << endl << endl << "Total expenses: $" << totalExpenses << endl;
 	cout << "Allowed expenses: $" << allowedExpenses << endl;
-	cout << "Amount to be reimbursed: $" << totalExpenses - allowedExpenses << endl;
-	cout << "Amount saved by employee: $" << maximumAllowedExpenses - totalExpenses << endl;
+	
+	if (amountReimbursed > 0.0)
+		cout << "Amount to be reimbursed: $" << amountReimbursed << endl;
+	
+	cout << "Amount saved by employee: $" << amountSaved << endl;
 
 	return 0;
 }
@@ -232,6 +237,8 @@ double parking (int days)
 	
 	if (parkingFees > allowedFees)
 		parkingFees = allowedFees;
+	else
+		amountSaved = allowedFees - parkingFees;
 	
 	return parkingFees;
 }
@@ -262,6 +269,8 @@ double taxi (int days)
 	
 	if (taxiFees > allowedFees)
 		taxiFees = allowedFees;
+	else
+		amountSaved = allowedFees - taxiFees;
 	
 	return taxiFees;
 }
@@ -318,6 +327,8 @@ double hotel (int days)
 	
 	if (hotelBill > allowedFees)
 		hotelBill = allowedFees;
+	else
+		amountSaved = allowedFees - hotelBill;
 	
 	return hotelBill;
 }
@@ -401,6 +412,8 @@ double getBreakfast()
 
 	if (amount > ALLOWEDBREAKFAST)
 		amount = ALLOWEDBREAKFAST;
+	else
+		amountSaved = ALLOWEDBREAKFAST - amount;
 
 	return amount;
 }
@@ -428,6 +441,8 @@ double getLunch()
 
 	if (amount > ALLOWEDLUNCH)
 		amount = ALLOWEDLUNCH;
+	else
+		amountSaved = ALLOWEDLUNCH - amount;
 
 	return amount;
 }
@@ -455,6 +470,8 @@ double getDinner()
 
 	if (amount > ALLOWEDDINNER)
 		amount = ALLOWEDDINNER;
+	else
+		amountSaved = ALLOWEDDINNER - amount;
 
 	return amount;
 }
