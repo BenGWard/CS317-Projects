@@ -3,7 +3,7 @@
 //	Title:		Project 4
 
 #include <iostream>
-#include <iomanip> //needed for setprecision and setw
+#include <iomanip> //needed for setprecision
 
 using namespace std;
 
@@ -18,6 +18,7 @@ const int ALLOWEDDINNER = 16;
 
 //global variables
 double totalExpenses = 0; //variable for total expenses of trip
+double maximumAllowedExpenses = 0; //variable for the maximum allowed expenses
 
 int daysSpent();
 void times (double &, double &);
@@ -29,6 +30,7 @@ double parking (int);
 double taxi (int);
 double registration ();
 double hotel (int); 
+double meals(int, double, double);
 double getBreakfast();
 double getLunch();
 double getDinner();
@@ -36,7 +38,32 @@ double getDinner();
 int main()
 {	
 	double allowedExpenses = 0; //variable for allowed expenses of trip
+	int days; //variable for number of days on the trip
+	double departureTime; //departure time of trip (format HH.MM)
+	double arrivalTime; //arrival time of trip (format HH.MM)
 	
+	//get number of days on trip and arrival and departure times
+	days = daysSpent();
+	times(departureTime, arrivalTime);
+	
+	//run functions to add up cost of the trip
+	allowedExpenses += airFare();
+	allowedExpenses += carRental();
+	allowedExpenses += vehicle();
+	allowedExpenses += parking(days);
+	allowedExpenses += taxi(days);
+	allowedExpenses += registration();
+	allowedExpenses += hotel(days);
+	allowedExpenses += meals(days, departureTime, arrivalTime);
+
+	//format output for money
+	cout << setprecision(2) << fixed;
+
+	cout << "Total expenses: $" << totalExpenses << endl;
+	cout << "Allowed expenses: $" << allowedExpenses << endl;
+	cout << "Amount to be reimbursed: $" << totalExpenses - allowedExpenses << endl;
+	cout << "Amount saved by employee: $" << maximumAllowedExpenses - totalExpenses << endl;
+
 	return 0;
 }
 
@@ -306,37 +333,39 @@ double meals(int days, double timeDepart, double timeArrive)
 {
 	double allowedTotal = 0;
 
-	for (n = 1; n <= days; n++)
+	for (int n = 1; n <= days; n++)
 	{
-		if (n = 1 && timeDepart < 7.00)
+		cout << "Day " << n << endl;
+
+		if (n == 1 && timeDepart < 7.00)
 		{
 			allowedTotal += getBreakfast();
 			allowedTotal += getLunch();
 			allowedTotal += getDinner();
 		}
-		else if (n = 1 && timeDepart < 12.00)
+		else if (n == 1 && timeDepart < 12.00)
 		{
 			allowedTotal += getLunch();
 			allowedTotal += getDinner();
 		}
-		else if (n = 1 && timeDepart < 18.00)
+		else if (n == 1 && timeDepart < 18.00)
 		{
 			allowedTotal += getDinner();
 		}
-		else if (n = days && timeArrive > 8.00)
-		{
-			allowedTotal += getBreakfast();
-		}
-		else if (n = days && timeArrive > 13.00)
-		{
-			allowedTotal += getBreakfast();
-			allowedTotal += getLunch();
-		}
-		else if (n = days && timeArrive > 19.00)
+		else if (n == days && timeArrive > 19.00)
 		{
 			allowedTotal += getBreakfast();
 			allowedTotal += getLunch();
 			allowedTotal += getDinner();
+		}
+		else if (n == days && timeArrive > 13.00)
+		{
+			allowedTotal += getBreakfast();
+			allowedTotal += getLunch();
+		}
+		else if (n == days && timeArrive > 8.00)
+		{
+			allowedTotal += getBreakfast();
 		}
 		else if (n > 1 && n < days)
 		{
@@ -345,6 +374,8 @@ double meals(int days, double timeDepart, double timeArrive)
 			allowedTotal += getDinner();
 		}
 	}
+
+	return allowedTotal;
 }
 
 // ********************************************************
