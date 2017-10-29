@@ -302,7 +302,50 @@ double hotel (int days)
 // totalExpenses global variable. Allowable expenses are  *
 // returned as a double.                                  *
 // ********************************************************
+double meals(int days, double timeDepart, double timeArrive)
+{
+	double allowedTotal = 0;
 
+	for (n = 1; n <= days; n++)
+	{
+		if (n = 1 && timeDepart < 7.00)
+		{
+			allowedTotal += getBreakfast();
+			allowedTotal += getLunch();
+			allowedTotal += getDinner();
+		}
+		else if (n = 1 && timeDepart < 12.00)
+		{
+			allowedTotal += getLunch();
+			allowedTotal += getDinner();
+		}
+		else if (n = 1 && timeDepart < 18.00)
+		{
+			allowedTotal += getDinner();
+		}
+		else if (n = days && timeArrive > 8.00)
+		{
+			allowedTotal += getBreakfast();
+		}
+		else if (n = days && timeArrive > 13.00)
+		{
+			allowedTotal += getBreakfast();
+			allowedTotal += getLunch();
+		}
+		else if (n = days && timeArrive > 19.00)
+		{
+			allowedTotal += getBreakfast();
+			allowedTotal += getLunch();
+			allowedTotal += getDinner();
+		}
+		else if (n > 1 && n < days)
+		{
+			allowedTotal += getBreakfast();
+			allowedTotal += getLunch();
+			allowedTotal += getDinner();
+		}
+	}
+}
 
 // ********************************************************
 // The getBreakfast function asks the user for the amount *
