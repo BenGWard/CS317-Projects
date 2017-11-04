@@ -320,7 +320,7 @@ double hotel (int days)
 			cout << "Error. Only amounts greater than $0.00 accepted." << endl;
 	} while (rate < 0.0);
 	
-	hotelBill = rate * days;
+	hotelBill = rate * (days - 1);
 	totalExpenses += hotelBill;
 	
 	allowedFees = days * DAILYALLOWHOTEL;
